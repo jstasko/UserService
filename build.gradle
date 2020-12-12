@@ -23,13 +23,13 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
-	compile (group: 'net.sf.dozer', name: 'dozer', version: '5.4.0')
-	compile (group: 'org.json', name: 'json', version: '20200518')
-	compile ('joda-time:joda-time:2.10.8')
-	compile("org.springframework.boot:spring-boot-starter-security")
-	compile (group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0')
-	compile (group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0')
-	compile ("com.auth0:java-jwt:3.4.0")
+	implementation (group: 'net.sf.dozer', name: 'dozer', version: '5.4.0')
+	implementation (group: 'org.json', name: 'json', version: '20200518')
+	implementation ('joda-time:joda-time:2.10.8')
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation "io.springfox:springfox-boot-starter:3.0.0"
+	implementation "io.springfox:springfox-swagger-ui:3.0.0"
+	implementation ("com.auth0:java-jwt:3.4.0")
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}

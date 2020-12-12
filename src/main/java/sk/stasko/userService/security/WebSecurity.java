@@ -15,10 +15,16 @@ import sk.stasko.userService.user.UserServiceImpl;
 
 import static sk.stasko.userService.security.SecurityConstants.SIGN_UP_URL;
 
-//@EnableWebSecurity
+@EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     private final UserServiceImpl service;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private static final String[] AUTH_WHITELIST = {
+            "/swagger-resources/**",
+            "/swagger-ui/index.html",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
 
     public WebSecurity(UserServiceImpl service, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.service = service;
@@ -29,6 +35,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers("/**/*").denyAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
@@ -44,7 +52,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web) {
-        web.ignoring().antMatchers("/v2/api-docs/**", "/swagger-ui.html", "/swagger-ui/**");
+        web.ignoring().antMatchers("/v2/api-docs/**", "/swagger-ui/", "/swagger-ui/**");
     }
 
     @Bean
