@@ -42,6 +42,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(service).passwordEncoder(bCryptPasswordEncoder);
     }
 
+    @Override
+    public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web) {
+        web.ignoring().antMatchers("/v2/api-docs/**", "/swagger-ui.html", "/swagger-ui/**");
+    }
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
