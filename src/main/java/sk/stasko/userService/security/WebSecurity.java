@@ -15,7 +15,7 @@ import sk.stasko.userService.user.UserServiceImpl;
 
 import static sk.stasko.userService.security.SecurityConstants.SIGN_UP_URL;
 
-@EnableWebSecurity
+//@EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     private final UserServiceImpl service;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;

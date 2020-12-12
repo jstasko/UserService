@@ -13,7 +13,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableMongoRepositories("sk.stasko.userService")
 @EnableMongoAuditing
-@EnableSwagger2
 public class UserServiceApplication {
 
 	public static void main(String[] args) {
