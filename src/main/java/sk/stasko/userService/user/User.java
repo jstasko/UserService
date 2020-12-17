@@ -1,9 +1,6 @@
 package sk.stasko.userService.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.joda.time.DateTime;
 import sk.stasko.userService.security.user.AuthenticationUser;
 
@@ -11,6 +8,7 @@ import sk.stasko.userService.security.user.AuthenticationUser;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User extends AuthenticationUser {
     private String id;
     private String title;
