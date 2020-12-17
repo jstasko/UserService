@@ -26,12 +26,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String email) {
-        return this.userDao.findDoctorByEmail(email);
+        return this.userDao.findUserByEmail(email);
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        return userDao.findUserByUsername(username);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User applicationUser = userDao.findDoctorByUsername(username);
+        User applicationUser = userDao.findUserByUsername(username);
         if (applicationUser == null) {
             logger.trace("User is not found");
             throw new UsernameNotFoundException(username);
@@ -43,6 +48,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User signUp(User user) {
+        if (user.getUsername() == null || user.getPassword() == null) {
+            logger.trace("User was not created .. credentials are missing");
+            return null;
+        }
+        if (user.getPassword().isEmpty() || user.getUsername().isEmpty()) {
+            logger.trace("User was not created .. credentials were not set");
+            return null;
+        }
+        logger.trace("New User is created .. credentials  username " + user.getUsername());
         logger.info("Password is being encoded");
         user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
         return this.userDao.save(user);

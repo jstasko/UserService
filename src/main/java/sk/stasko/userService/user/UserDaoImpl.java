@@ -31,13 +31,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findDoctorByUsername(String username) {
+    public User findUserByUsername(String username) {
         UserDto userDto = userRepository.findByUsername(username);
-        return this.mapper.map(userDto, User.class);
+        if (userDto != null) {
+            return this.mapper.map(userDto, User.class);
+        }
+        return null;
     }
 
     @Override
-    public User findDoctorByEmail(String firstName) {
+    public User findUserByEmail(String firstName) {
         UserDto userDto = userRepository.findByEmail(firstName);
         return this.mapper.map(userDto, User.class);
     }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:3000/")
 @Api( tags = "User")
 public class UserController  {
 
@@ -31,9 +32,16 @@ public class UserController  {
     @PostMapping("/signUp")
     public @ResponseBody
     User signUp(@RequestBody User user) {
-        logger.info("New User is created .. credentials  username " + user.getUsername());
         User newUser = this.service.signUp(user);
+        if (newUser == null) {
+            return null;
+        }
         logger.trace("user created with id + " + newUser.getId());
         return newUser;
+    }
+
+    @GetMapping("/ahoj")
+    private String getName() {
+        return "AHOJ";
     }
 }
