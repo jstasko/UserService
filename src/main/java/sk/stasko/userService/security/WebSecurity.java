@@ -23,7 +23,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
             "/swagger-resources/**",
             "/swagger-ui/index.html",
             "/v2/api-docs",
-            "/webjars/**"
+            "/webjars/**",
+            "/api/email/send"
     };
 
     public WebSecurity(UserServiceImpl service, BCryptPasswordEncoder bCryptPasswordEncoder) {

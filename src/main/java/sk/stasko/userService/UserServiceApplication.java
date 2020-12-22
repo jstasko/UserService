@@ -7,10 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import sk.stasko.userService.order.OrderBeanMappingBuilder;
+import sk.stasko.userService.mail.MailBeanMappingBuilder;
 import sk.stasko.userService.type.TypeBeanMappingBuilder;
 import sk.stasko.userService.user.UserBeanMappingBuilder;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableMongoRepositories("sk.stasko.userService")
@@ -25,8 +24,8 @@ public class UserServiceApplication {
 	public DozerBeanMapper mapper() {
 		DozerBeanMapper mapper = new DozerBeanMapper();
 		mapper.addMapping(new UserBeanMappingBuilder());
-		mapper.addMapping(new OrderBeanMappingBuilder());
 		mapper.addMapping(new TypeBeanMappingBuilder());
+		mapper.addMapping(new MailBeanMappingBuilder());
 		return mapper;
 	}
 
