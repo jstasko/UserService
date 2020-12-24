@@ -1,11 +1,34 @@
+buildscript {
+	dependencies {
+		classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 }
 
+apply plugin: 'com.palantir.docker'
 group = 'sk.stasko'
 version = '0.0.1-SNAPSHOT'
+
+bootJar {
+	baseName = 'userservice'
+	version =  '0.0.1-SNAPSHOT'
+}
+
+task unpack(type: Copy) {
+	dependsOn bootJar
+	from(zipTree(tasks.bootJar.outputs.files.singleFile))
+	into("build/dependency")
+}
+docker {
+	name "${project.group}/${bootJar.baseName}"
+	copySpec.from(tasks.unpack.outputs).into("dependency")
+	buildArgs(['DEPENDENCY': "dependency"])
+}
 
 configurations {
 	compileOnly {
@@ -30,7 +53,7 @@ dependencies {
 	implementation "io.springfox:springfox-boot-starter:3.0.0"
 	implementation "io.springfox:springfox-swagger-ui:3.0.0"
 	implementation ("com.auth0:java-jwt:3.4.0")
-	implementation ('org.springframework.boot:spring-boot-starter-mail')
+	compile group: 'com.spotify', name: 'docker-maven-plugin', version: '1.2.2'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
